@@ -29,7 +29,13 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
         backgroundColor: is_dark ? AppColors.black : Colors.white,
         body: Center(
-            child: Text("Zealth-AI",
-                style: TextStyle(fontSize: 54.0, color: Colors.indigo.shade300, fontWeight: FontWeight.w700))));
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Zealth-AI", style: TextStyle(fontSize: 54.0, color: Colors.black, fontWeight: FontWeight.w700)),
+            Text("Pic of the day.",
+                style: TextStyle(fontSize: 24.0, color: Colors.indigo.shade300, fontWeight: FontWeight.w400)),
+          ],
+        )));
   }
 }

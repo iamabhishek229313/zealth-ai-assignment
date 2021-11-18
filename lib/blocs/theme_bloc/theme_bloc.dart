@@ -51,8 +51,8 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
     final isDarkModeEnabled = _prefs.getBool(LocalStorageConstants.darkMode);
 
     if (isDarkModeEnabled == null) {
-      _prefs.setBool(LocalStorageConstants.darkMode, true);
-      yield ThemeState(ThemeMode.dark);
+      _prefs.setBool(LocalStorageConstants.darkMode, false);
+      yield ThemeState(ThemeMode.light);
     } else {
       ThemeMode themeMode = isDarkModeEnabled ? ThemeMode.dark : ThemeMode.light;
       yield ThemeState(themeMode);

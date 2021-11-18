@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zealth_ai_assign/blocs/theme_bloc/theme_bloc.dart';
 import 'package:zealth_ai_assign/constants/constant_colors.dart';
+import 'package:zealth_ai_assign/services/authentication_services/authentication_services.dart';
 
 class AuthenticationScreen extends StatefulWidget {
   const AuthenticationScreen({Key? key}) : super(key: key);
@@ -20,6 +21,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text("Weclome to Zealth-AI",
@@ -31,20 +33,24 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
               child: RaisedButton(
                 elevation: 10,
                 onPressed: () async {
-                  //   UserCredential userCredential = await FirebaseAuth.instance.;
+                  AuthenticationServices.signInWithGoogle();
                 },
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7.0)),
                 color: BlocProvider.of<ThemeBloc>(context).state.themeMode == ThemeMode.dark
                     ? Colors.white
                     : AppColors.black,
-                child: Text(
-                  "Get started",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      color: BlocProvider.of<ThemeBloc>(context).state.themeMode == ThemeMode.dark
-                          ? Colors.black
-                          : Colors.white,
-                      fontSize: 24.0),
+                child: Row(
+                  children: [
+                    Text(
+                      "Sign in with Google",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          color: BlocProvider.of<ThemeBloc>(context).state.themeMode == ThemeMode.dark
+                              ? Colors.black
+                              : Colors.white,
+                          fontSize: 24.0),
+                    ),
+                  ],
                 ),
               ),
             )

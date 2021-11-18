@@ -31,7 +31,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
               height: screenHeight * 0.065,
               width: double.maxFinite,
               child: RaisedButton(
-                elevation: 10,
+                padding: EdgeInsets.zero,
                 onPressed: () async {
                   AuthenticationServices.signInWithGoogle();
                 },
@@ -41,6 +41,16 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                     : AppColors.black,
                 child: Row(
                   children: [
+                    Transform.scale(
+                      scale: 0.6,
+                      child: Container(
+                        child: Image.asset(
+                          'assets/logos/google_logo.jpg',
+                          fit: BoxFit.scaleDown,
+                        ),
+                      ),
+                    ),
+                    Spacer(),
                     Text(
                       "Sign in with Google",
                       style: TextStyle(
@@ -50,6 +60,10 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                               : Colors.white,
                           fontSize: 24.0),
                     ),
+                    Spacer(),
+                    SizedBox(
+                      width: 32.0,
+                    )
                   ],
                 ),
               ),

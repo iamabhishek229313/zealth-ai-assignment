@@ -11,7 +11,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(BlocProvider(
-    create: (_) => new ThemeBloc(ThemeState(ThemeMode.light))..add(ThemeLoadStarted()),
+    create: (_) => ThemeBloc(ThemeState(ThemeMode.light))..add(ThemeLoadStarted()),
     child: MyApp(),
   ));
 }
@@ -20,7 +20,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-        providers: [BlocProvider(create: (_) => SelectedDateBloc())],
+        providers: [
+          BlocProvider(
+              create: (_) => SelectedDateBloc(SelectedDateState(DateTime(2000)))..add(SelectedDateLoadStarted()))
+        ],
+        // providers: [BlocProvider(create: (_) => SelectedDateBloc())],
         child: BlocConsumer<ThemeBloc, ThemeState>(
           listener: (context, state) {},
           builder: (context, themeState) {

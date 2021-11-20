@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zealth_ai_assign/blocs/theme_bloc/theme_bloc.dart';
+import 'package:zealth_ai_assign/screens/profile_screen/profile_screen.dart';
 import 'package:zealth_ai_assign/services/authentication_services/authentication_services.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -21,19 +22,19 @@ class CustomDrawer extends StatelessWidget {
             accountName: Text(FirebaseAuth.instance.currentUser?.displayName ?? "Undefined Name"),
             accountEmail: Text(FirebaseAuth.instance.currentUser?.email ?? "Undefined email"),
           ),
-          _itemList()
+          _itemList(context)
         ],
       ),
     ));
   }
 
-  Column _itemList() {
+  Column _itemList(BuildContext context) {
     return Column(
       children: [
         Divider(height: 0.0),
         ListTile(
             onTap: () {
-              // Navigator.of(context).push(route)
+              Navigator.of(context).push(MaterialPageRoute(builder: (_) => ProfileScreen()));
             },
             dense: true,
             title: Text("Profile Screen"),

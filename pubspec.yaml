@@ -24,7 +24,8 @@ dependencies:
   google_fonts: ^2.1.0
   google_sign_in:
   intl: ^0.17.0
-  progress_dialog: ^1.2.4
+  flutter_progress_hud: ^2.0.0
+  # progress_dialog: ^1.2.4
   # rive: 0.7.28
   # flare_flutter: ^3.0.2
 dev_dependencies:

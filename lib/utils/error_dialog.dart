@@ -6,16 +6,12 @@ errorDialog(BuildContext context, String message) {
     context: context,
     builder: (context) {
       return AlertDialog(
-        title: Text(
-          "Error",
-        ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Image.asset(
-              // "assets/icons/dialog_image.png",
               "assets/images/not_found.png",
-              height: 100,
+              height: 150.0,
             ),
             SizedBox(
               height: 8.0,

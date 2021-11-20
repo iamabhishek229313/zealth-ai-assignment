@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:progress_dialog/progress_dialog.dart';
+import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:zealth_ai_assign/blocs/selected_day_bloc/selected_day_bloc.dart';
 import 'package:zealth_ai_assign/models/pod_model.dart';
 import 'package:zealth_ai_assign/screens/home_screen/drawer.dart';
@@ -21,12 +21,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late ProgressDialog _pr;
+  late var _progressDialog;
 
   @override
   void initState() {
     super.initState();
-    _pr = CustomProgressIndicatorDialog().customProgressIndicator(context);
+    _progressDialog = ProgressHUD.of(context);
   }
 
   @override
@@ -89,19 +89,23 @@ class _HomeScreenState extends State<HomeScreen> {
                       SizedBox(height: 16.0),
                       ElevatedButton(
                           onPressed: () async {
-                            _pr.show();
+                            _progressDialog.show();
 
                             /// [Call the NASA API]
                             PODModel podModel;
                             try {
                               podModel = await NasaAPIServices()
                                   .getPOD(BlocProvider.of<SelectedDateBloc>(context).state.dateTime);
-                              _pr.hide();
-                              Navigator.of(context)
-                                  .push(MaterialPageRoute(builder: (_) => ViewPODScreen(podModel: podModel)));
+                              _progressDialog.dismiss();
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (_) => ProgressHUD(
+                                      barrierColor: Colors.black54,
+                                      backgroundColor: Colors.white,
+                                      indicatorWidget: CircularProgressIndicator(),
+                                      child: ViewPODScreen(podModel: podModel))));
                             } catch (ex) {
-                              _pr.hide();
-                              errorDialog(context, "Not Found");
+                              _progressDialog.dismiss();
+                              errorDialog(context, "Content Not Found");
                               log("Expection faced : " + ex.toString());
                             }
                           },

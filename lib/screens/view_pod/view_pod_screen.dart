@@ -1,16 +1,14 @@
-import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:progress_dialog/progress_dialog.dart';
+import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:zealth_ai_assign/blocs/selected_day_bloc/selected_day_bloc.dart';
 import 'package:zealth_ai_assign/blocs/theme_bloc/theme_bloc.dart';
 import 'package:zealth_ai_assign/models/pod_model.dart';
 import 'package:zealth_ai_assign/screens/view_pod/pod_details_sheet.dart';
 import 'package:zealth_ai_assign/services/nasa_api_services/nasa_api_services.dart';
 import 'package:zealth_ai_assign/utils/custom_date_picker.dart';
-import 'package:zealth_ai_assign/utils/custom_progress_indicator.dart';
 import 'package:zealth_ai_assign/utils/error_dialog.dart';
 
 class ViewPODScreen extends StatefulWidget {
@@ -23,12 +21,11 @@ class ViewPODScreen extends StatefulWidget {
 }
 
 class _ViewPODScreenState extends State<ViewPODScreen> {
-  late ProgressDialog _progressDialog;
-
+  late var _progressDialog;
   @override
   void initState() {
     super.initState();
-    _progressDialog = CustomProgressIndicatorDialog().customProgressIndicator(context);
+    _progressDialog = ProgressHUD.of(context);
   }
 
   _setNewPODData(DateTime newDate) async {
@@ -36,13 +33,11 @@ class _ViewPODScreenState extends State<ViewPODScreen> {
     PODModel? newPODdata;
     try {
       newPODdata = await NasaAPIServices().getPOD(newDate);
-      log("newwest : " + newPODdata.toJson().toString());
-      _progressDialog.hide();
+      _progressDialog.dismiss();
     } catch (ex) {
       newPODdata = null;
-      log("Caught exception : " + ex.toString());
-      _progressDialog.hide();
-      errorDialog(context, "Not found");
+      _progressDialog.dismiss();
+      errorDialog(context, "Content Not found");
     }
 
     setState(() {
@@ -50,7 +45,6 @@ class _ViewPODScreenState extends State<ViewPODScreen> {
         widget.podModel = newPODdata;
         BlocProvider.of<SelectedDateBloc>(context).add(SelectedDateChanged(newDate));
       }
-      log("changed version : " + widget.podModel.toJson().toString());
     });
   }
 

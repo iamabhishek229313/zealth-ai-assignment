@@ -2,8 +2,10 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:zealth_ai_assign/screens/auth/authentication_screen.dart';
 import 'package:zealth_ai_assign/screens/home_screen/home_screen.dart';
 import 'package:zealth_ai_assign/utils/network_error_dialog.dart';
@@ -59,16 +61,21 @@ class _StateWrapperState extends State<StateWrapper> {
   }
 
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (BuildContext context, snapshot) {
-          if (snapshot.hasData) {
-            if (snapshot.data == null)
-              return AuthenticationScreen();
-            else
-              return HomeScreen();
-          }
-          return AuthenticationScreen();
-        });
+    return ProgressHUD(
+      barrierColor: Colors.black54,
+      backgroundColor: Colors.white,
+      indicatorWidget: CircularProgressIndicator(),
+      child: StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (BuildContext context, snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data == null)
+                return AuthenticationScreen();
+              else
+                return HomeScreen();
+            }
+            return AuthenticationScreen();
+          }),
+    );
   }
 }

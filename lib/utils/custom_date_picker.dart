@@ -6,13 +6,16 @@ Future<DateTime?> selectDate(BuildContext context, DateTime initialDate) async {
       context: context,
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0))),
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0))),
       builder: (context) {
         DateTime? newPickedValue = initialDate;
         return StatefulBuilder(
           builder: (BuildContext context, modalState) {
             return ClipRRect(
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30.0),
+                  topRight: Radius.circular(30.0)),
               child: SizedBox(
                 height: MediaQuery.of(context).size.height * 0.33,
                 width: double.maxFinite,
@@ -21,8 +24,9 @@ Future<DateTime?> selectDate(BuildContext context, DateTime initialDate) async {
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
-                        "Hover date : " + newPickedValue.toString(),
-                        style: TextStyle(color: Colors.indigo, fontWeight: FontWeight.bold),
+                        "Hover date " + newPickedValue.toString().split(' ')[0],
+                        style: TextStyle(
+                            color: Colors.indigo, fontWeight: FontWeight.bold),
                       ),
                     ),
                     Expanded(
@@ -50,7 +54,8 @@ Future<DateTime?> selectDate(BuildContext context, DateTime initialDate) async {
                             },
                             child: Text(
                               "Cancel",
-                              style: TextStyle(color: Colors.red, fontSize: 18.0),
+                              style:
+                                  TextStyle(color: Colors.red, fontSize: 18.0),
                             )),
                         SizedBox(
                           height: 28.0,
@@ -65,7 +70,8 @@ Future<DateTime?> selectDate(BuildContext context, DateTime initialDate) async {
                             },
                             child: Text(
                               "Done",
-                              style: TextStyle(color: Colors.green, fontSize: 18.0),
+                              style: TextStyle(
+                                  color: Colors.green, fontSize: 18.0),
                             )),
                         Spacer()
                       ],

@@ -17,10 +17,13 @@ class CustomDrawer extends StatelessWidget {
       child: Column(
         children: [
           UserAccountsDrawerHeader(
-            currentAccountPicture:
-                CircleAvatar(backgroundImage: NetworkImage(FirebaseAuth.instance.currentUser?.photoURL ?? "")),
-            accountName: Text(FirebaseAuth.instance.currentUser?.displayName ?? "Undefined Name"),
-            accountEmail: Text(FirebaseAuth.instance.currentUser?.email ?? "Undefined email"),
+            currentAccountPicture: CircleAvatar(
+                backgroundImage: NetworkImage(
+                    FirebaseAuth.instance.currentUser?.photoURL ?? "")),
+            accountName: Text(FirebaseAuth.instance.currentUser?.displayName ??
+                "Undefined Name"),
+            accountEmail: Text(
+                FirebaseAuth.instance.currentUser?.email ?? "Undefined email"),
           ),
           _itemList(context)
         ],
@@ -34,7 +37,9 @@ class CustomDrawer extends StatelessWidget {
         Divider(height: 0.0),
         ListTile(
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (_) => ProfileScreen()));
+              Navigator.of(context).pop();
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (_) => ProfileScreen()));
             },
             dense: true,
             title: Text("Profile Screen"),
@@ -64,7 +69,8 @@ class CustomDrawer extends StatelessWidget {
                 return Switch(
                     value: state.themeMode == ThemeMode.dark,
                     onChanged: (newVal) {
-                      BlocProvider.of<ThemeBloc>(context).add(ThemeChanged(newVal));
+                      BlocProvider.of<ThemeBloc>(context)
+                          .add(ThemeChanged(newVal));
                     });
               },
             )),

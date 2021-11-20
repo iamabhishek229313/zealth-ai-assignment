@@ -1,9 +1,4 @@
-// import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:rive/rive.dart';
-import 'package:zealth_ai_assign/blocs/theme_bloc/theme_bloc.dart';
-import 'package:zealth_ai_assign/constants/constant_colors.dart';
 import 'package:zealth_ai_assign/services/authentication_services/authentication_services.dart';
 
 class AuthenticationScreen extends StatefulWidget {

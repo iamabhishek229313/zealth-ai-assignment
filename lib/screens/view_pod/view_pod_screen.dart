@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:zealth_ai_assign/blocs/selected_day_bloc/selected_day_bloc.dart';
 import 'package:zealth_ai_assign/blocs/theme_bloc/theme_bloc.dart';
 import 'package:zealth_ai_assign/models/pod_model.dart';
@@ -43,7 +44,8 @@ class _ViewPODScreenState extends State<ViewPODScreen> {
     setState(() {
       if (newPODdata != null) {
         widget.podModel = newPODdata;
-        BlocProvider.of<SelectedDateBloc>(context).add(SelectedDateChanged(newDate));
+        BlocProvider.of<SelectedDateBloc>(context)
+            .add(SelectedDateChanged(newDate));
       }
     });
   }
@@ -72,7 +74,8 @@ class _ViewPODScreenState extends State<ViewPODScreen> {
         body: SafeArea(
           child: GestureDetector(
             onLongPress: () async {
-              final pickedDate = await selectDate(context, BlocProvider.of<SelectedDateBloc>(context).state.dateTime);
+              final pickedDate = await selectDate(context,
+                  BlocProvider.of<SelectedDateBloc>(context).state.dateTime);
               if (pickedDate != null) {
                 await _setNewPODData(pickedDate);
               }
@@ -92,7 +95,34 @@ class _ViewPODScreenState extends State<ViewPODScreen> {
                   imageUrl: widget.podModel.hdurl,
                   fit: BoxFit.contain,
                   progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      Center(child: CupertinoActivityIndicator()),
+                      Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: screenWidth / 2.5,
+                          height: screenWidth / 2.5,
+                          child: Shimmer.fromColors(
+                            baseColor: Colors.grey.shade200,
+                            highlightColor: Colors.grey,
+                            child: Image.asset(
+                              'assets/images/loading_rocket.png',
+                              fit: BoxFit.cover,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 16.0,
+                        ),
+                        Text(
+                          "Loading picture of the day ...",
+                          style: TextStyle(
+                              fontSize: 18.0, fontWeight: FontWeight.w700),
+                        )
+                      ],
+                    ),
+                  ),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
               ),
@@ -125,7 +155,8 @@ class _ViewPODScreenState extends State<ViewPODScreen> {
           "More details",
           style: TextStyle(
               fontSize: 12.0,
-              color: (BlocProvider.of<ThemeBloc>(context).state.themeMode == ThemeMode.dark
+              color: (BlocProvider.of<ThemeBloc>(context).state.themeMode ==
+                      ThemeMode.dark
                   ? Colors.white
                   : Colors.black)),
         )

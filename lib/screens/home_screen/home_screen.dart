@@ -9,7 +9,6 @@ import 'package:zealth_ai_assign/screens/home_screen/drawer.dart';
 import 'package:zealth_ai_assign/screens/view_pod/view_pod_screen.dart';
 import 'package:zealth_ai_assign/services/nasa_api_services/nasa_api_services.dart';
 import 'package:zealth_ai_assign/utils/custom_date_picker.dart';
-import 'package:zealth_ai_assign/utils/custom_progress_indicator.dart';
 import 'package:zealth_ai_assign/utils/error_dialog.dart';
 import 'package:zealth_ai_assign/utils/weekdays_color_getter.dart';
 
@@ -45,7 +44,10 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Center(
                 child: Container(
                   decoration: BoxDecoration(
-                      color: selectedDateState.dateTime.weekday == DateTime.tuesday ? Colors.white12 : Colors.black87,
+                      color:
+                          selectedDateState.dateTime.weekday == DateTime.tuesday
+                              ? Colors.white12
+                              : Colors.black87,
                       borderRadius: BorderRadius.circular(9)),
                   padding: EdgeInsets.all(16.0),
                   child: Column(
@@ -64,24 +66,35 @@ class _HomeScreenState extends State<HomeScreen> {
                               SizedBox(
                                 width: 8.0,
                               ),
-                              Text(selectedDateState.dateTime.toString().split(' ')[0],
+                              Text(
+                                  selectedDateState.dateTime
+                                      .toString()
+                                      .split(' ')[0],
                                   style: TextStyle(
-                                      color: Colors.indigoAccent, fontWeight: FontWeight.bold, fontSize: 18.0))
+                                      color: Colors.indigoAccent,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18.0))
                             ],
                           ),
                           SizedBox(height: 16.0),
                           OutlinedButton(
                             onPressed: () async {
-                              final pickedDate = await selectDate(context, selectedDateState.dateTime);
+                              final pickedDate = await selectDate(
+                                  context, selectedDateState.dateTime);
                               if (pickedDate != null)
-                                BlocProvider.of<SelectedDateBloc>(context).add(SelectedDateChanged(pickedDate));
+                                BlocProvider.of<SelectedDateBloc>(context)
+                                    .add(SelectedDateChanged(pickedDate));
                             },
                             style: OutlinedButton.styleFrom(
-                              side: BorderSide(width: 1.0, color: Colors.orange),
+                              side:
+                                  BorderSide(width: 1.0, color: Colors.orange),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [Text("Select other date"), Icon(Icons.date_range_outlined)],
+                              children: [
+                                Text("Select other date"),
+                                Icon(Icons.date_range_outlined)
+                              ],
                             ),
                           )
                         ],
@@ -94,15 +107,19 @@ class _HomeScreenState extends State<HomeScreen> {
                             /// [Call the NASA API]
                             PODModel podModel;
                             try {
-                              podModel = await NasaAPIServices()
-                                  .getPOD(BlocProvider.of<SelectedDateBloc>(context).state.dateTime);
+                              podModel = await NasaAPIServices().getPOD(
+                                  BlocProvider.of<SelectedDateBloc>(context)
+                                      .state
+                                      .dateTime);
                               _progressDialog.dismiss();
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (_) => ProgressHUD(
                                       barrierColor: Colors.black54,
                                       backgroundColor: Colors.white,
-                                      indicatorWidget: CircularProgressIndicator(),
-                                      child: ViewPODScreen(podModel: podModel))));
+                                      indicatorWidget:
+                                          CircularProgressIndicator(),
+                                      child:
+                                          ViewPODScreen(podModel: podModel))));
                             } catch (ex) {
                               _progressDialog.dismiss();
                               errorDialog(context, "Content Not Found");

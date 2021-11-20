@@ -18,13 +18,16 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _jumpToScreen() {
-    Timer(Duration(milliseconds: 320),
-        () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => StateWrapper())));
+    Timer(
+        Duration(milliseconds: 320),
+        () => Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (_) => StateWrapper())));
   }
 
   @override
   Widget build(BuildContext context) {
-    bool is_dark = (BlocProvider.of<ThemeBloc>(context).state.themeMode == ThemeMode.dark);
+    bool is_dark =
+        (BlocProvider.of<ThemeBloc>(context).state.themeMode == ThemeMode.dark);
 
     return Scaffold(
         backgroundColor: is_dark ? AppColors.black : Colors.white,
@@ -32,9 +35,16 @@ class _SplashScreenState extends State<SplashScreen> {
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Zealth-AI", style: TextStyle(fontSize: 54.0, color: Colors.black, fontWeight: FontWeight.w700)),
+            Text("Zealth-AI",
+                style: TextStyle(
+                    fontSize: 54.0,
+                    color: is_dark ? Colors.white : Colors.black,
+                    fontWeight: FontWeight.w700)),
             Text("Pic of the day.",
-                style: TextStyle(fontSize: 24.0, color: Colors.indigo.shade300, fontWeight: FontWeight.w400)),
+                style: TextStyle(
+                    fontSize: 24.0,
+                    color: Colors.indigo.shade300,
+                    fontWeight: FontWeight.w400)),
           ],
         )));
   }

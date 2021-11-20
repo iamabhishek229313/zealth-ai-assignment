@@ -11,7 +11,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(BlocProvider(
-    create: (_) => ThemeBloc(ThemeState(ThemeMode.light))..add(ThemeLoadStarted()),
+    create: (_) =>
+        ThemeBloc(ThemeState(ThemeMode.light))..add(ThemeLoadStarted()),
     child: MyApp(),
   ));
 }
@@ -22,9 +23,9 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(
-              create: (_) => SelectedDateBloc(SelectedDateState(DateTime(2000)))..add(SelectedDateLoadStarted()))
+              create: (_) => SelectedDateBloc(SelectedDateState(DateTime(2000)))
+                ..add(SelectedDateLoadStarted()))
         ],
-        // providers: [BlocProvider(create: (_) => SelectedDateBloc())],
         child: BlocConsumer<ThemeBloc, ThemeState>(
           listener: (context, state) {},
           builder: (context, themeState) {
@@ -37,8 +38,10 @@ class MyApp extends StatelessWidget {
                   primaryColor: Colors.white,
                   backgroundColor: Colors.white,
                   textTheme: GoogleFonts.robotoTextTheme()),
-              darkTheme:
-                  ThemeData(brightness: Brightness.dark, primaryColor: Colors.grey, backgroundColor: AppColors.black),
+              darkTheme: ThemeData(
+                  brightness: Brightness.dark,
+                  primaryColor: Colors.grey,
+                  backgroundColor: AppColors.black),
               home: SplashScreen(),
             );
           },

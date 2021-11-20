@@ -20,67 +20,51 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
     final double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.0),
-          child: Stack(
-            children: [
-              // RiveAnimation.file('assets/rive_anim/space_bg.flr2d'),
-              // RiveAnimation.asset('assets/rive_anim/space_bg.flr2d'),
-              // FlareActor(
-              //   "assets/rive_anim/space_bg.flr2d",
-              // ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text("Weclome to Zealth-AI",
-                      style: TextStyle(fontSize: 42.0, color: Colors.indigo.shade300, fontWeight: FontWeight.bold)),
-                  Text("Let's get started with a quick Authentication.", style: TextStyle(fontSize: 28.0)),
-                  SizedBox(
-                    height: screenHeight * 0.065,
-                    width: double.maxFinite,
-                    child: RaisedButton(
-                      padding: EdgeInsets.zero,
-                      onPressed: () async {
-                        AuthenticationServices.signInWithGoogle();
-                      },
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7.0)),
-                      color: BlocProvider.of<ThemeBloc>(context).state.themeMode == ThemeMode.dark
-                          ? Colors.white
-                          : AppColors.black,
-                      child: Row(
-                        children: [
-                          Transform.scale(
-                            scale: 0.6,
-                            child: Container(
-                              child: Image.asset(
-                                'assets/logos/google_logo.jpg',
-                                fit: BoxFit.scaleDown,
-                              ),
-                            ),
-                          ),
-                          Spacer(),
-                          Text(
-                            "Sign in with Google",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                color: BlocProvider.of<ThemeBloc>(context).state.themeMode == ThemeMode.dark
-                                    ? Colors.black
-                                    : Colors.white,
-                                fontSize: 24.0),
-                          ),
-                          Spacer(),
-                          SizedBox(
-                            width: 32.0,
-                          )
-                        ],
-                      ),
-                    ),
-                  )
-                ],
+      body: SizedBox(
+        width: double.maxFinite,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Spacer(),
+            Text("Weclome to Zealth-AI",
+                style: TextStyle(
+                    fontSize: 42.0,
+                    color: Colors.indigo.shade300,
+                    fontWeight: FontWeight.bold)),
+            Text("Pic of the Day", style: TextStyle(fontSize: 28.0)),
+            SizedBox(
+              height: 24.0,
+            ),
+            FloatingActionButton(
+              backgroundColor: Colors.white,
+              onPressed: () async {
+                AuthenticationServices.signInWithGoogle();
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image.asset(
+                  'assets/logos/google_logo.jpg',
+                  fit: BoxFit.scaleDown,
+                ),
               ),
-            ],
-          )),
+            ),
+            SizedBox(
+              height: 8.0,
+            ),
+            Text("Sign in with Google",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 18.0, color: Colors.grey)),
+            Spacer(),
+            Text("Made by Abhishek - 21 Nov 2021 till 3 AM"),
+            Text("Assignment by Zealth-AI"),
+            Text("Courtesy -  https://api.nasa.gov/"),
+            SizedBox(
+              height: 8.0,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

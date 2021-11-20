@@ -61,7 +61,7 @@ class CustomDrawer extends StatelessWidget {
               AuthenticationServices.signOut();
             },
             dense: true,
-            title: Text("Dark"),
+            title: Text("Dark Mode"),
             subtitle: Text("Enable/Disable dark mode"),
             trailing: BlocConsumer<ThemeBloc, ThemeState>(
               listener: (context, state) {},
